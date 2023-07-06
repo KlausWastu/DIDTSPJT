@@ -28,36 +28,16 @@ module.exports = {
             console.log(err)
         }
     }, 
-    // createDepartemen: async(req,res)=>{
-    //     try {
-    //         const {nameDepartemen} = req.body
-    //         const dep = await Departemen.findOne({nameDepartemen})
-    //         if(dep){
-    //             if(dep.isdeleted===true){
-    //                 await Departemen.findOneAndUpdate(
-    //                     { nameDepartemen },
-    //                     { isdeleted: false }
-    //                   );
-    //                 req.flash("alertMessage", "Berhasil menambahkan data Departemen");
-    //                 req.flash("alertStatus", "success");
-    //                 res.redirect("/departemen");
-    //             } else if(dep.isdeleted===false){
-    //                 req.flash(
-    //                     "alertMessage",
-    //                     "Departemen yang anda masukan sudah ditambahkan"
-    //                   );
-    //                   req.flash("alertStatus", "success");
-    //                   res.redirect("/departemen");
-    //             }
-    //         } else {
-    //             let departemen = await Departemen({ nameDepartemen });
-    //             await departemen.save();
-    //             req.flash("alertMessage", "Berhasil menambahkan data Departemen");
-    //             req.flash("alertStatus", "success");
-    //             res.redirect("/departemen");
-    //         }
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+    createDokumen: async(req,res)=>{
+        try {
+            const {namaDokumen, kodeDok, revisi, pemegangDok} = req.body
+            const dokumen = await Dokumen({NamaDokumen: namaDokumen, revisi, kodeDok, pemegangDokumen: pemegangDok})
+            await dokumen.save()
+            req.flash("alertMessage", `Berhasil menambahkan data ${namaDokumen}`);
+            req.flash("alertStatus", "success");
+            res.redirect("/dokumen");
+        } catch (err) {
+            console.log(err)
+        }
+    }
 }
