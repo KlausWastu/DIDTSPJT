@@ -14,7 +14,9 @@ module.exports = {
                 dokumen
             })
         } catch (err) {
-            console.log(err)
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/dokumen")
         }
     }, 
     viewCreate:async(req,res)=>{
@@ -25,7 +27,9 @@ module.exports = {
                 departemen
             })
         } catch (err) {
-            console.log(err)
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/dokumen")
         }
     }, 
     createDokumen: async(req,res)=>{
@@ -37,7 +41,9 @@ module.exports = {
             req.flash("alertStatus", "success");
             res.redirect("/dokumen");
         } catch (err) {
-            console.log(err)
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/dokumen")
         }
     }
 }

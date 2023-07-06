@@ -13,7 +13,9 @@ module.exports = {
                 departemen
             })
         } catch (err) {
-            console.log(err)
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/departemen")
         }
     }, 
     viewCreate:async(req,res)=>{
@@ -22,7 +24,9 @@ module.exports = {
                 title: "Tambah Departemen"
             })
         } catch (err) {
-            console.log(err)
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/departemen")
         }
     }, 
     createDepartemen: async(req,res)=>{
@@ -54,7 +58,9 @@ module.exports = {
                 res.redirect("/departemen");
             }
         } catch (err) {
-            console.log(err)
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/departemen")
         }
     }
 }
