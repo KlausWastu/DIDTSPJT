@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const flash = require("connect-flash") 
 const session = require("express-session")
+const override = require("method-override")
 
 var dashboardRouter = require('./app/dashboard/router');
 var departemenRouter = require('./app/departemen/router');
@@ -25,6 +26,7 @@ app.use(
   })
 );
 app.use("/adminlte", express.static(path.join(__dirname, "/node_modules/admin-lte/")))
+app.use(override("_method"))
 app.use(flash())
 app.use(logger('dev'));
 app.use(express.json());
