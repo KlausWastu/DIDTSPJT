@@ -8,6 +8,7 @@ const session = require("express-session")
 
 var dashboardRouter = require('./app/dashboard/router');
 var departemenRouter = require('./app/departemen/router');
+var dokumenRouter = require('./app/dokumenterkendali/router');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', dashboardRouter);
 app.use('/departemen', departemenRouter);
+app.use('/dokumen', dokumenRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
