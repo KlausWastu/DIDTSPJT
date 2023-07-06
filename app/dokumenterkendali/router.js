@@ -4,6 +4,6 @@ const {index, viewCreate, createDepartemen} = require("./controller")
 
 /* GET home page. */
 router.get('/', index);
-// router.get("/create", viewCreate)
+router.get("/create", viewCreate)
 // router.post("/create",createDepartemen)
 module.exports = router;
