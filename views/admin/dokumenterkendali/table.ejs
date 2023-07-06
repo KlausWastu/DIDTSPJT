@@ -1,0 +1,41 @@
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Dokumen</th>
+        <th>Kode Dok / Nomor Salinan</th>
+        <th>Revisi</th>
+        <th>Pemegang Dokumen</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0; i < dokumen.length; i++){ %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= dokumen[i].namaDokumen %></td>
+        <td><%= dokumen[i].kodeDok %></td>
+        <td><%= dokumen[i].revisi %></td>
+        <td><%= dokumen[i].pemegangDokumen %></td>
+        <td>
+          <a
+            href="/departemen/edit/<%= departemen[i]._id %>"
+            class="btn btn-warning btn-sm"
+          >
+            <i class="fas fa-pencil-alt"> Edit </i>
+          </a>
+          <form
+            action="/departemen/delete/<%= departemen[i]._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline-block"
+          >
+            <button class="btn btn-danger btn-sm">
+              <i class="fas fa-trash"> Hapus </i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  
