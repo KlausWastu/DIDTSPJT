@@ -13,19 +13,19 @@
       <% for(let i = 0; i < dokumen.length; i++){ %>
       <tr>
         <td><%= i+1 %></td>
-        <td><%= dokumen[i].namaDokumen %></td>
+        <td><%= dokumen[i].NamaDokumen %></td>
         <td><%= dokumen[i].kodeDok %></td>
         <td><%= dokumen[i].revisi %></td>
         <td><%= dokumen[i].pemegangDokumen %></td>
         <td>
           <a
-            href="/departemen/edit/<%= departemen[i]._id %>"
+            href="/dokumen/edit/<%= dokumen[i]._id %>"
             class="btn btn-warning btn-sm"
           >
             <i class="fas fa-pencil-alt"> Edit </i>
           </a>
           <form
-            action="/departemen/delete/<%= departemen[i]._id %>?_method=DELETE"
+            action="/dokumen/delete/<%= dokumen[i]._id %>?_method=DELETE"
             method="POST"
             style="display: inline-block"
           >
