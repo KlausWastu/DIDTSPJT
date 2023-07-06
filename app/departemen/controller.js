@@ -62,5 +62,20 @@ module.exports = {
             req.flash("alertStatus", "danger");
             res.redirect("/departemen")
         }
-    }
+    },
+    viewEdit: async(req,res)=>{
+        try {
+            const {id} = req.params
+            const departemen= await Departemen.findOne({_id :id})
+            res.render("admin/departemen/edit",{
+                title: "Edit Departemen",
+                departemen
+            })
+        } catch (err) {
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/departemen")
+        }
+    },
+    
 }
