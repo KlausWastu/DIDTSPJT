@@ -1,0 +1,138 @@
+<%- include ../../partials/header.ejs %> <%- include ../../partials/navbar.ejs
+%> <%- include ../../partials/sidebar.ejs %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Edit Dokumen Terkendali</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">
+              <a href="/dokumen">Daftar Induk Dok. Terkendali</a>
+            </li>
+            <li class="breadcrumb-item active">Tambah Dokumen Terkendali</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Form Edit Dokumen Terkendali <%=  %></h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="/dokumen/edit/<%= dok._id %>?_method=PUT" method="POST">
+              <div class="card-body">
+                <div class="form-group">
+                  <label style="color: red">*</label
+                  ><label for="namaDokumen">Nama Dokumen</label>
+                  <input
+                    type="text"
+                    name="namaDokumen"
+                    class="form-control"
+                    id="namaDok"
+                    value="<%= dok.NamaDokumen %>"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                    <label style="color: red">*</label
+                    ><label for="kodeDok">Kode Dokumen / Nomor Salinan</label>
+                    <input
+                      type="text"
+                      name="kodeDok"
+                      class="form-control"
+                      id="departemen"
+                      value="<%= dok.kodeDok %>"
+                      required
+                    />
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label style="color: red">*</label
+                          ><label for="revisi">Revisi</label>
+                          <div class="row">
+                            <div class="col-6 col-md-6">
+                                <input
+                                type="text"
+                                name="revisi"
+                                class="form-control"
+                                id="revisi"
+                                value="<%= dok.revisi %>"
+                                required
+                                />
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="tambah()" style="margin-right: 2px;">+</button>
+                                <button type="button" class="btn btn-primary btn-sm" id="pengurangan" onclick="kurang()">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label style="color: red">*</label
+                            ><label for="revisi">Pemegang Dokumen</label>
+                            <select class="form-control select2" name="pemegangDok" id="pemDok">
+                                <option selected="selected">Pilih Departemen</option>
+                                <% departemen.forEach(departemen=> { %> <% if(departemen._id.toString() === dok.pemegangDokumen._id.toString()) {%>
+                                    <option value="<%= departemen._id %>" selected>
+                                    <%= departemen.nameDepartemen %>
+                                    </option>
+                                <% } else {%>
+                                    <option value="<%= departemen._id %>">
+                                    <%= departemen.nameDepartemen %>
+                                    </option>
+                                <% } %>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                  
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<script>
+    function tambah() {
+        const revisi = document.getElementById("revisi")
+        const nilai = parseInt(revisi.value) 
+        revisi.value = nilai + 1
+        document.getElementById("pengurangan").disabled = false
+    } 
+    function kurang(){
+        const revisi = document.getElementById("revisi")
+        const nilai = parseInt(revisi.value)
+        if(nilai > 0){
+            revisi.value = nilai -1
+        } 
+        if(nilai === 1){
+            document.getElementById("pengurangan").disabled = true
+        }
+    }
+</script>
+<%- include ../../partials/footer.ejs %> <%- include ../../partials/js.ejs %>
