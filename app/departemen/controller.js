@@ -94,5 +94,21 @@ module.exports = {
             req.flash("alertStatus", "danger");
             res.redirect("/departemen")
         }
+    }, 
+    deleteDepartemen: async(req,res)=>{
+        try {
+            const {id} = req.params
+        const nm = await Departemen.findOne({_id:id})
+
+        await Departemen.findOneAndUpdate({_id:id}, {isdeleted:true})
+        
+        req.flash("alertMessage", `Berhasil menghapus data ${nm.nameDepartemen}`);
+        req.flash("alertStatus", "success");
+        res.redirect("/departemen");
+        } catch (err) {
+        req.flash("alertMessage", `${err.message}`);
+        req.flash("alertStatus", "danger");
+        res.redirect("/departemen")
+        }
     }
 }
