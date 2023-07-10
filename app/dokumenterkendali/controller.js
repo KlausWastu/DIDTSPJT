@@ -61,5 +61,19 @@ module.exports = {
             req.flash("alertStatus", "danger");
             res.redirect("/dokumen")
         }
+    }, 
+    editDokumen: async(req,res)=>{
+        try {
+            const {id} = req.params
+            const {namaDokumen, kodeDok, revisi, pemegangDok} = req.body
+            await Dokumen.findOneAndUpdate({_id:id}, {NamaDokumen: namaDokumen, revisi, kodeDok, pemegangDokumen: pemegangDok}) 
+            req.flash("alertMessage", `Berhasil menambahkan data ${namaDokumen}`);
+            req.flash("alertStatus", "success");
+            res.redirect("/dokumen");
+        } catch (err) {
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/dokumen")
+        }
     }
 }
