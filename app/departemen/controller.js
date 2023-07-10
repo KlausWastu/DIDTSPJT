@@ -77,5 +77,22 @@ module.exports = {
             res.redirect("/departemen")
         }
     },
-    
+    editDepartemen: async(req,res)=>{
+        try {
+            const {id} = req.params
+            const {nameDepartemen} = req.body
+            await Departemen.findOneAndUpdate({
+                _id:id
+            },{
+                nameDepartemen
+            })
+            req.flash("alertMessage", `Berhasil mengubah data ${nameDepartemen}`);
+            req.flash("alertStatus", "success");
+            res.redirect("/departemen");
+        } catch (err) {
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/departemen")
+        }
+    }
 }
