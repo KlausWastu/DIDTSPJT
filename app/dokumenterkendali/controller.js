@@ -45,5 +45,21 @@ module.exports = {
             req.flash("alertStatus", "danger");
             res.redirect("/dokumen")
         }
+    }, 
+    viewEdit: async(req,res)=>{
+        try {
+            const {id} = req.params
+            const dok = await Dokumen.findOne({_id:id}).populate("pemegangDokumen")
+            const departemen = await Departemen.find({isdeleted:false})
+            res.render("admin/dokumenterkendali/edit",{
+                title: "Edit Dokumen Terkendali",
+                dok,
+                departemen
+            })
+        } catch (err) {
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", "danger");
+            res.redirect("/dokumen")
+        }
     }
 }
