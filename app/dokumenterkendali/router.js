@@ -1,11 +1,19 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const {index, viewCreate, createDokumen, viewEdit, editDokumen} = require("./controller");
+const {
+  index,
+  viewCreate,
+  createDokumen,
+  viewEdit,
+  editDokumen,
+  deleteDokumen,
+} = require("./controller");
 
 /* GET home page. */
-router.get('/', index);
-router.get("/create", viewCreate)
-router.post("/create",createDokumen)
-router.get("/edit/:id", viewEdit)
-router.put("/edit/:id", editDokumen)
+router.get("/", index);
+router.get("/create", viewCreate);
+router.post("/create", createDokumen);
+router.get("/edit/:id", viewEdit);
+router.put("/edit/:id", editDokumen);
+router.delete("/delete/:id", deleteDokumen);
 module.exports = router;
