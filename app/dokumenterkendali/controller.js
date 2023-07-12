@@ -44,7 +44,7 @@ module.exports = {
         pemegangDokumen: pemegangDok,
       });
       await dokumen.save();
-      req.flash("alertMessage", `Berhasil menambahkan data ${namaDokumen}`);
+      req.flash("alertMessage", `Berhasil membuat data ${namaDokumen}`);
       req.flash("alertStatus", "success");
       res.redirect("/dokumen");
     } catch (err) {
@@ -84,7 +84,7 @@ module.exports = {
           pemegangDokumen: pemegangDok,
         }
       );
-      req.flash("alertMessage", `Berhasil menambahkan data ${namaDokumen}`);
+      req.flash("alertMessage", `Berhasil mengubah data ${namaDokumen}`);
       req.flash("alertStatus", "success");
       res.redirect("/dokumen");
     } catch (err) {
