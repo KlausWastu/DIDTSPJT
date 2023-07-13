@@ -15,6 +15,7 @@ module.exports = {
         title: "Dokumen Terkendali",
         dokumen,
         name: req.session.user.name,
+        role: req.session.user.role,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -29,6 +30,7 @@ module.exports = {
         title: "Tambah Dokumen Terkendali",
         departemen,
         name: req.session.user.name,
+        role: req.session.user.role,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -67,6 +69,7 @@ module.exports = {
         dok,
         departemen,
         name: req.session.user.name,
+        role: req.session.user.role,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);

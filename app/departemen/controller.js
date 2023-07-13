@@ -12,6 +12,7 @@ module.exports = {
         title: "Departemen",
         departemen,
         name: req.session.user.name,
+        role: req.session.user.role,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -24,6 +25,7 @@ module.exports = {
       res.render("admin/departemen/create", {
         title: "Tambah Departemen",
         name: req.session.user.name,
+        role: req.session.user.role,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -73,6 +75,7 @@ module.exports = {
         title: "Edit Departemen",
         departemen,
         name: req.session.user.name,
+        role: req.session.user.role,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);

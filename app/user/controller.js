@@ -7,10 +7,19 @@ module.exports = {
       const alertStatus = req.flash("alertStatus");
 
       const alert = { message: alertMessage, status: alertStatus };
-      res.render("admin/signin/view_signin", {
-        title: "Sign In",
-        alert,
-      });
+      if (req.session.user === null || req.session.user === undefined) {
+        res.render("admin/signin/view_signin", {
+          title: "Sign In",
+          alert,
+        });
+      } else {
+        if (
+          req.session.user.role === "admin" ||
+          req.session.user.role === "user"
+        ) {
+          res.redirect("/dashboard");
+        }
+      }
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
       req.flash("alertStatus", "danger");
