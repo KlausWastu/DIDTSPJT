@@ -14,6 +14,7 @@ module.exports = {
         alert,
         title: "Dokumen Terkendali",
         dokumen,
+        name: req.session.user.name,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -27,6 +28,7 @@ module.exports = {
       res.render("admin/dokumenterkendali/create", {
         title: "Tambah Dokumen Terkendali",
         departemen,
+        name: req.session.user.name,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -64,6 +66,7 @@ module.exports = {
         title: "Edit Dokumen Terkendali",
         dok,
         departemen,
+        name: req.session.user.name,
       });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
