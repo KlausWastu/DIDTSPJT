@@ -1,4 +1,5 @@
 const User = require("../user/model");
+const bcrypt = require("bcryptjs");
 module.exports = {
   index: async (req, res) => {
     try {
@@ -36,13 +37,59 @@ module.exports = {
   createDokumen: async (req, res) => {
     try {
       const { email, password, name } = req.body;
-      const user = await User({
-        email,
-        password,
-        nama: name,
+      const usr = await User.findOne({ email });
+      if (usr) {
+        req.flash("alertMessage", `${email} sudah ada`);
+        req.flash("alertStatus", "danger");
+        res.redirect("/pengguna");
+      } else {
+        let hashpassword = await bcrypt.hash(password, 10);
+        const user = await User({
+          email,
+          password: hashpassword,
+          nama: name,
+        });
+        await user.save();
+        req.flash("alertMessage", `Berhasil membuat data ${name}`);
+        req.flash("alertStatus", "success");
+        res.redirect("/pengguna");
+      }
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/pengguna");
+    }
+  },
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const usr = await User.findOne({ _id: id });
+      res.render("admin/tambahpengguna/edit", {
+        title: "Edit Dokumen Terkendali",
+        usr,
+        name: req.session.user.name,
+        role: req.session.user.role,
       });
-      await user.save();
-      req.flash("alertMessage", `Berhasil membuat data ${nama}`);
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/dokumen");
+    }
+  },
+  editPengguna: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { email, password, name } = req.body;
+      let hashpass = await bcrypt.hash(password, 10);
+      await User.findOneAndUpdate(
+        { _id: id },
+        {
+          email,
+          password: hashpass,
+          nama: name,
+        }
+      );
+      req.flash("alertMessage", `Berhasil mengubah data ${name}`);
       req.flash("alertStatus", "success");
       res.redirect("/pengguna");
     } catch (err) {
@@ -51,48 +98,6 @@ module.exports = {
       res.redirect("/pengguna");
     }
   },
-  //   viewEdit: async (req, res) => {
-  //     try {
-  //       const { id } = req.params;
-  //       const dok = await Dokumen.findOne({ _id: id }).populate(
-  //         "pemegangDokumen"
-  //       );
-  //       const departemen = await Departemen.find({ isdeleted: false });
-  //       res.render("admin/dokumenterkendali/edit", {
-  //         title: "Edit Dokumen Terkendali",
-  //         dok,
-  //         departemen,
-  //         name: req.session.user.name,
-  //         role: req.session.user.role,
-  //       });
-  //     } catch (err) {
-  //       req.flash("alertMessage", `${err.message}`);
-  //       req.flash("alertStatus", "danger");
-  //       res.redirect("/dokumen");
-  //     }
-  //   },
-  //   editDokumen: async (req, res) => {
-  //     try {
-  //       const { id } = req.params;
-  //       const { namaDokumen, kodeDok, revisi, pemegangDok } = req.body;
-  //       await Dokumen.findOneAndUpdate(
-  //         { _id: id },
-  //         {
-  //           NamaDokumen: namaDokumen,
-  //           revisi,
-  //           kodeDok,
-  //           pemegangDokumen: pemegangDok,
-  //         }
-  //       );
-  //       req.flash("alertMessage", `Berhasil mengubah data ${namaDokumen}`);
-  //       req.flash("alertStatus", "success");
-  //       res.redirect("/dokumen");
-  //     } catch (err) {
-  //       req.flash("alertMessage", `${err.message}`);
-  //       req.flash("alertStatus", "danger");
-  //       res.redirect("/dokumen");
-  //     }
-  //   },
   //   deleteDokumen: async (req, res) => {
   //     try {
   //       const { id } = req.params;
