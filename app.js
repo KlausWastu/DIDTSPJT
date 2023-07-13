@@ -12,6 +12,7 @@ const loginRouter = require("./app/user/router");
 var dashboardRouter = require("./app/dashboard/router");
 var departemenRouter = require("./app/departemen/router");
 var dokumenRouter = require("./app/dokumenterkendali/router");
+const penggunaRouter = require("./app/pengguna/router");
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use("/", loginRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/departemen", departemenRouter);
 app.use("/dokumen", dokumenRouter);
+app.use("/pengguna", penggunaRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
