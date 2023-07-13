@@ -28,9 +28,8 @@ module.exports = {
             req.session.user = {
               id: check._id,
               email: check.email,
-              status: check.status,
               role: check.role,
-              name: check.name,
+              name: check.nama,
             };
             if (check.role === "admin" || check.role === "user") {
               res.redirect("/dashboard");
@@ -53,6 +52,7 @@ module.exports = {
           "alertMessage",
           `Email yang anda masukan salah, Silahkan coba lagi`
         );
+
         req.flash("alertStatus", "danger");
         res.redirect("/");
       }
