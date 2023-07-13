@@ -1,0 +1,36 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Pengguna</th>
+      <th>Email</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < user.length; i++){ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= user[i].nama %></td>
+      <td><%= user[i].email %></td>
+      <td>
+        <a
+          href="/pengguna/edit/<%= user[i]._id %>"
+          class="btn btn-warning btn-sm"
+        >
+          <i class="fas fa-pencil-alt"> Edit </i>
+        </a>
+        <form
+          action="/pengguna/delete/<%= user[i]._id %>?_method=DELETE"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"> Hapus </i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
