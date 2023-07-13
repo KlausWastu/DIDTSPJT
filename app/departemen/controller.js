@@ -1,8 +1,8 @@
 const Departemen = require("./model");
 module.exports = {
   index: async (req, res) => {
-    const departemen = await Departemen.find({ isdeleted: false });
     try {
+      const departemen = await Departemen.find({ isdeleted: false });
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
 

@@ -2,10 +2,10 @@ const Dokumen = require("./model");
 const Departemen = require("../departemen/model");
 module.exports = {
   index: async (req, res) => {
-    const dokumen = await Dokumen.find({ isdeleted: false }).populate(
-      "pemegangDokumen"
-    );
     try {
+      const dokumen = await Dokumen.find({ isdeleted: false }).populate(
+        "pemegangDokumen"
+      );
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
 
