@@ -8,8 +8,10 @@ const {
   editDokumen,
   deleteDokumen,
 } = require("./controller");
+const { isLogin } = require("../middleware/auth");
 
 /* GET home page. */
+router.use(isLogin);
 router.get("/", index);
 router.get("/create", viewCreate);
 router.post("/create", createDokumen);
