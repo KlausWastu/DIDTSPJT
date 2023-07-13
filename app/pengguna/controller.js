@@ -98,19 +98,19 @@ module.exports = {
       res.redirect("/pengguna");
     }
   },
-  //   deleteDokumen: async (req, res) => {
-  //     try {
-  //       const { id } = req.params;
-  //       const dok = await Dokumen.findOne({ _id: id });
+  deleteDokumen: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const usr = await User.findOne({ _id: id });
 
-  //       await Dokumen.findOneAndUpdate({ _id: id }, { isdeleted: true });
-  //       req.flash("alertMessage", `Berhasil menghapus data ${dok.NamaDokumen}`);
-  //       req.flash("alertStatus", "success");
-  //       res.redirect("/dokumen");
-  //     } catch (err) {
-  //       req.flash("alertMessage", `${err.message}`);
-  //       req.flash("alertStatus", "danger");
-  //       res.redirect("/dokumen");
-  //     }
-  //   },
+      await User.findOneAndUpdate({ _id: id }, { isdeleted: true });
+      req.flash("alertMessage", `Berhasil menghapus ${usr.email}`);
+      req.flash("alertStatus", "success");
+      res.redirect("/pengguna");
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/pengguna");
+    }
+  },
 };
