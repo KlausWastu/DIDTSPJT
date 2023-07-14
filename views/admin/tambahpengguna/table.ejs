@@ -4,6 +4,7 @@
       <th>No</th>
       <th>Pengguna</th>
       <th>Email</th>
+      <th>Status</th>
       <th>Aksi</th>
     </tr>
   </thead>
@@ -14,12 +15,31 @@
       <td><%= user[i].nama %></td>
       <td><%= user[i].email %></td>
       <td>
+        <% if(user[i].isdeleted === true){%>
+        <button class="badge btn btn-danger">Non-Aktif</button>
+        <% } else if(user[i].isdeleted === false ){%>
+        <button class="badge btn btn-success">Aktif</button>
+        <%}%>
+      </td>
+      <td>
         <a
           href="/pengguna/edit/<%= user[i]._id %>"
           class="btn btn-warning btn-sm"
         >
           <i class="fas fa-pencil-alt"> Edit </i>
         </a>
+        <% if(user[i].isdeleted === true){ %>
+
+        <form
+          action="/pengguna/aktifkan/<%= user[i]._id %>?_method=PUT"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="btn btn-success btn-sm">
+            <i class="fas fa-trash"> Aktifkan </i>
+          </button>
+        </form>
+        <% } else if(user[i].isdeleted === false) { %>
         <form
           action="/pengguna/delete/<%= user[i]._id %>?_method=DELETE"
           method="POST"
@@ -29,6 +49,7 @@
             <i class="fas fa-trash"> Hapus </i>
           </button>
         </form>
+        <%}%>
       </td>
     </tr>
     <% } %>
