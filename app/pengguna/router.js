@@ -8,6 +8,7 @@ const {
   editDokumen,
   deleteDokumen,
   editPengguna,
+  aktifkan,
 } = require("./controller");
 const { isLogin } = require("../middleware/auth");
 
@@ -19,4 +20,5 @@ router.post("/create", createDokumen);
 router.get("/edit/:id", viewEdit);
 router.put("/edit/:id", editPengguna);
 router.delete("/delete/:id", deleteDokumen);
+router.put("/aktifkan/:id", aktifkan);
 module.exports = router;
