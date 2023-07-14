@@ -113,4 +113,18 @@ module.exports = {
       res.redirect("/pengguna");
     }
   },
+  aktifkan: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const usr = await User.findOne({ _id: id });
+      await User.findOneAndUpdate({ _id: id }, { isdeleted: false });
+      req.flash("alertMessage", `Berhasil mengaktifkan kembali ${usr.email}`);
+      req.flash("alertStatus", "success");
+      res.redirect("/pengguna");
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/pengguna");
+    }
+  },
 };
