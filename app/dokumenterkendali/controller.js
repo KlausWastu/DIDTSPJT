@@ -1,5 +1,6 @@
 const Dokumen = require("./model");
 const Departemen = require("../departemen/model");
+const ExcelJS = require("exceljs");
 module.exports = {
   index: async (req, res) => {
     try {
@@ -113,5 +114,50 @@ module.exports = {
       req.flash("alertStatus", "danger");
       res.redirect("/dokumen");
     }
+  },
+  exportExcel: async (req, res) => {
+    const dokumen = await Dokumen.find({ isdeleted: false }).populate(
+      "pemegangDokumen"
+    );
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Dokumen Terkendali");
+
+    worksheet.columns = [
+      { header: "No", key: "no", width: 5 },
+      { header: "Nama Dokumen", key: "namaDokumen", width: 20 },
+      { header: "Kode Dok / Nomor Salinan", key: "kodeDok", width: 40 },
+      { header: "Revisi", key: "revisi", width: 8 },
+      { header: "Pemegang Dokumen", key: "pemegangDokumen", width: 30 },
+    ];
+
+    dokumen.forEach((dok, index) => {
+      worksheet.addRow({
+        no: index + 1,
+        namaDokumen: dok.NamaDokumen,
+        kodeDok: dok.kodeDok,
+        revisi: dok.revisi,
+        pemegangDokumen: dok.pemegangDokumen.nameDepartemen,
+      });
+    });
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=suratkeluar.xlsx"
+    );
+
+    workbook.xlsx
+      .write(res)
+      .then(() => {
+        res.end();
+      })
+      .catch((err) => {
+        console.error("Terjadi kesalahan dalam mengirim file Excel:", err);
+        res.status(500).send("Terjadi kesalahan dalam mengirim file Excel.");
+      });
   },
 };
