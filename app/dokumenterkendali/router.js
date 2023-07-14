@@ -7,6 +7,7 @@ const {
   viewEdit,
   editDokumen,
   deleteDokumen,
+  exportExcel,
 } = require("./controller");
 const { isLogin } = require("../middleware/auth");
 
@@ -18,4 +19,5 @@ router.post("/create", createDokumen);
 router.get("/edit/:id", viewEdit);
 router.put("/edit/:id", editDokumen);
 router.delete("/delete/:id", deleteDokumen);
+router.get("/export", exportExcel);
 module.exports = router;
