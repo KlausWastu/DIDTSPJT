@@ -75,4 +75,50 @@ module.exports = {
     req.session.destroy();
     res.redirect("/");
   },
+  viewubahPass: async (req, res) => {
+    try {
+      const usr = await User.findById(req.session.user.id);
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      res.render("admin/ubahPassword/ubahpass", {
+        alert,
+        usr,
+        title: "Ubah Password",
+      });
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/");
+    }
+  },
+  ubahPass: async (req, res) => {
+    try {
+      const { newpassword, currentpassword } = req.body;
+      const usr = await User.findById(req.session.user.id);
+      const salt = await bcrypt.genSalt(10);
+      const hashpassword = await bcrypt.hash(newpassword, salt);
+      const checkpass = await bcrypt.compare(currentpassword, usr.password);
+      if (checkpass) {
+        await User.findOneAndUpdate(
+          {
+            _id: req.session.user.id,
+          },
+          { password: hashpassword }
+        );
+        req.flash("alertMessage", `Berhasil update password`);
+        req.flash("alertStatus", "success");
+        req.session.destroy();
+        return res.redirect("/");
+      } else {
+        req.flash("alertMessage", "Gagal update password");
+        req.flash("alertStatus", "danger");
+        return res.redirect("/ubahpass");
+      }
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/");
+    }
+  },
 };
