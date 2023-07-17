@@ -17,7 +17,7 @@ module.exports = {
           req.session.user.role === "admin" ||
           req.session.user.role === "user"
         ) {
-          res.redirect("/dashboard");
+          res.redirect("/departemen");
         }
       }
     } catch (err) {
@@ -41,7 +41,7 @@ module.exports = {
               name: check.nama,
             };
             if (check.role === "admin" || check.role === "user") {
-              res.redirect("/dashboard");
+              res.redirect("/departemen");
             }
           } else {
             req.flash("alertMessage", `Password yang anda masukan salah`);
