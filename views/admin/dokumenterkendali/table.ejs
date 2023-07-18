@@ -18,21 +18,23 @@
       <td><%= dokumen[i].revisi %></td>
       <td><%= dokumen[i].pemegangDokumen.nameDepartemen %></td>
       <td>
-        <a
-          href="/dokumen/edit/<%= dokumen[i]._id %>"
-          class="btn btn-warning btn-sm"
-        >
-          <i class="fas fa-pencil-alt"> Edit </i>
-        </a>
-        <form
-          action="/dokumen/delete/<%= dokumen[i]._id %>?_method=DELETE"
-          method="POST"
-          style="display: inline-block"
-        >
-          <button class="btn btn-danger btn-sm">
-            <i class="fas fa-trash"> Hapus </i>
-          </button>
-        </form>
+        <div style="display: flex; justify-content: space-around">
+          <a
+            href="/dokumen/edit/<%= dokumen[i]._id %>"
+            class="btn btn-warning btn-sm"
+          >
+            <i class="fas fa-pencil-alt"> Edit </i>
+          </a>
+          <form
+            action="/dokumen/delete/<%= dokumen[i]._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline-block"
+          >
+            <button class="btn btn-danger btn-sm">
+              <i class="fas fa-trash"> Hapus </i>
+            </button>
+          </form>
+        </div>
       </td>
     </tr>
     <% } %>

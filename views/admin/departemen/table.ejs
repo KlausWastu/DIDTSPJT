@@ -1,17 +1,18 @@
 <table id="example2" class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>Departemen</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(let i = 0; i < departemen.length; i++){ %>
-      <tr>
-        <td><%= i+1 %></td>
-        <td><%= departemen[i].nameDepartemen %></td>
-        <td>
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Departemen</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < departemen.length; i++){ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= departemen[i].nameDepartemen %></td>
+      <td>
+        <div style="display: flex; justify-content: space-around">
           <a
             href="/departemen/edit/<%= departemen[i]._id %>"
             class="btn btn-warning btn-sm"
@@ -27,9 +28,9 @@
               <i class="fas fa-trash"> Hapus </i>
             </button>
           </form>
-        </td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
-  
+        </div>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
