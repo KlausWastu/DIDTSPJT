@@ -10,15 +10,15 @@ const {
   editPengguna,
   aktifkan,
 } = require("./controller");
-const { isLogin } = require("../middleware/auth");
+const { isLogin, admin } = require("../middleware/auth");
 
 /* GET home page. */
 router.use(isLogin);
-router.get("/", index);
-router.get("/create", viewCreate);
-router.post("/create", createDokumen);
-router.get("/edit/:id", viewEdit);
-router.put("/edit/:id", editPengguna);
-router.delete("/delete/:id", deleteDokumen);
-router.put("/aktifkan/:id", aktifkan);
+router.get("/", admin, index);
+router.get("/create", admin, viewCreate);
+router.post("/create", admin, createDokumen);
+router.get("/edit/:id", admin, viewEdit);
+router.put("/edit/:id", admin, editPengguna);
+router.delete("/delete/:id", admin, deleteDokumen);
+router.put("/aktifkan/:id", admin, aktifkan);
 module.exports = router;
