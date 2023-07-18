@@ -87,6 +87,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const { nameDepartemen } = req.body;
+      const depart = await Departemen.findOne({ _id: id });
       await Departemen.findOneAndUpdate(
         {
           _id: id,
@@ -95,7 +96,10 @@ module.exports = {
           nameDepartemen,
         }
       );
-      req.flash("alertMessage", `Berhasil mengubah data ${nameDepartemen}`);
+      req.flash(
+        "alertMessage",
+        `Berhasil mengubah data ${depart.nameDepartemen}`
+      );
       req.flash("alertStatus", "success");
       res.redirect("/departemen");
     } catch (err) {
