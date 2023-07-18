@@ -11,4 +11,16 @@ module.exports = {
       next();
     }
   },
+  admin: (req, res, next) => {
+    if (req.session.user.role === "admin") {
+      return next();
+    } else if (req.session.user.role === "user") {
+      req.flash(
+        "alertMessage",
+        "Anda tidak ada hak untuk mengakses halaman ini"
+      );
+      req.flash("alertStatus", "danger");
+      res.redirect("/departemen");
+    }
+  },
 };
